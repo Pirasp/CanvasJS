@@ -125,7 +125,14 @@
             circles[i].draw();
         }
         
-        decideCircle(0.1);        
+        decideCircle(0.1);   
+        
+        mvx = mx - mpx;
+        mvy = my - mpy;
+
+        //doing this here again removes phantom velocity
+        mpx = mx;
+        mpy = my;
     }
     
     document.onmousemove = function(event){
@@ -135,8 +142,7 @@
         mx = event.pageX;
         my =  event.pageY;
         
-        mvx = mx - mpx;
-        mvy = my - mpy;
+
     }
     
 
