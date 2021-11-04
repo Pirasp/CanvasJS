@@ -29,7 +29,7 @@
         var blue = 225 * Math.random()+20;
         var vx = (4 * (Math.random()-0.5) + 0.5)*2;
         var vy = (4 * (Math.random()-0.5) + 0.5)*2;
-        var vdes = (4 * (Math.random()-0.5) + 0.5)*2;
+        var vdes = (4 * (Math.random()-0.5) + 0.5)*2+1;
         var x = Math.random() * (window.innerWidth - 2*radius) + radius;
         var y = Math.random() * (window.innerHeight - 2*radius) + radius;
         var lifetime = 1500 * Math.random()+500;
@@ -76,7 +76,7 @@
                 vy = (mcx/dst)*vlen+mvx;
                 vx = (mcy/dst)*vlen+mvy;
             }
-            if(vlen > vdes){
+            if(vlen > vdes && vlen > 1){
                 vx *= 0.98;
                 vy *= 0.98;
             }
