@@ -50,9 +50,34 @@
         }
         
     }
+
+    //Wall Object
+    function Wall(maxHeight, maxWidth){
+        this.height = Math.random()*maxHeight;
+        this.width = Math.random()*maxWidth;
+
+
+        this.update = function(){
+
+        }
+    }
+
+    //makes the walls
+    function wallMaker(minDistance, variance, maxOnScreen){
+        var dist = minDistance;
+        var rand = variance;
+        var maxNum = maxOnScreen;
+
+        //Update decides when a new wall should be drawn
+        this.update = function(){
+
+        }
+
+    }
     
     
     var char = new Player(0.5, 10, 40);
+    var wallr = new wallMaker(400, 300, 3);
     
     //jump on key press
     document.addEventListener("keydown", function onEvent(event) {
@@ -64,6 +89,7 @@
     function animate(){
         c.clearRect(0, 0, window.innerWidth, window.innerHeight);
         char.update();
+        wall.update();
         //dwar ground
         c.fillStyle='lightgray';
         c.fillRect(0, window.innerHeight/2, window.innerWidth, window.innerHeight/2);
