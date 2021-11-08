@@ -52,18 +52,24 @@
     }
 
     //Wall Object
-    function Wall(maxHeight, maxWidth){
-        this.height = Math.random()*maxHeight;
-        this.width = Math.random()*maxWidth;
+    function Wall(maxHeight, maxWidth, velocity){
+        this.height = Math.random()*(maxHeight-10)+10;
+        this.width = Math.random()*(maxWidth-10)+10;
+        var x = window.innerWidth;
+        var vel = velocity;
 
 
         this.update = function(){
-
+            c.fillStyle = 'red';
+            c.fillRect(x, window.innerHeight/2-this.height, this.width, this.height);
+            x += velocity;
         }
     }
 
     //makes the walls
     function wallMaker(minDistance, variance, maxOnScreen){
+        //speed of the walls modified on runtime by score/runtime
+        this.speed = 4;
         var dist = minDistance;
         var rand = variance;
         var maxNum = maxOnScreen;
