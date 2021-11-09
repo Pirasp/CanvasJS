@@ -51,39 +51,54 @@
         
     }
 
+    var walls = [];
+
     //Wall Object
     function Wall(maxHeight, maxWidth, velocity){
         this.height = Math.random()*(maxHeight-10)+10;
         this.width = Math.random()*(maxWidth-10)+10;
-        var x = window.innerWidth;
+        this.x = window.innerWidth;
         var vel = velocity;
 
 
         this.update = function(){
             c.fillStyle = 'red';
-            c.fillRect(x, window.innerHeight/2-this.height, this.width, this.height);
-            x += velocity;
+            c.fillRect(this.x, window.innerHeight/2-this.height, this.width, this.height);
+            this.x -= velocity;
+            if(this.x < 0-this.width){
+                walls.shift();
+            }
         }
     }
 
     //makes the walls
     function wallMaker(minDistance, variance, maxOnScreen){
-        //speed of the walls modified on runtime by score/runtime
         this.speed = 4;
-        var dist = minDistance;
+        var mdist = minDistance;
+        var dist = 99999999999;
         var rand = variance;
+        var instRand = Math.random()*rand;
         var maxNum = maxOnScreen;
 
         //Update decides when a new wall should be drawn
         this.update = function(){
-
+            if(dist > mdist + instRand){
+                var newWall = new Wall(50, 40, this.speed);
+                walls.push(newWall);
+                dist = 0;
+                this.speed += 0.2;
+                if(mdist > 20){
+                    mdist -= 2;
+                }
+            }
+            dist ++;
         }
 
     }
     
     
     var char = new Player(0.5, 10, 40);
-    var wallr = new wallMaker(400, 300, 3);
+    var wall = new wallMaker(120, 120, 3);
     
     //jump on key press
     document.addEventListener("keydown", function onEvent(event) {
@@ -94,11 +109,14 @@
     
     function animate(){
         c.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        char.update();
-        wall.update();
         //dwar ground
         c.fillStyle='lightgray';
         c.fillRect(0, window.innerHeight/2, window.innerWidth, window.innerHeight/2);
+        char.update();
+        wall.update();
+        for(var i=0; i<walls.length; i++){
+            walls[i].update();
+        }
         requestAnimationFrame(animate);
     }
 
